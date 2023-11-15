@@ -1,8 +1,9 @@
 import express from "express";
 const userRouter = express.Router();
-import client from "../db.js";
+import client from "../../database/db.js";
+import { requireSignin } from "../Auth/interface.js";
 
-userRouter.get("/", async (req, response) => {
+userRouter.get("/", requireSignin, async (req, response) => {
   const res = await client.query("SELECT * FROM users");
   response.json(res.rows);
 });
@@ -18,8 +19,6 @@ userRouter.post("/", async (req, resp) => {
 });
 
 userRouter.patch("/:id", async (req, resp) => {
-  console.warn(req.params.id, req.body);
-
   const keys = Object.keys(req.body);
   const values = [];
 

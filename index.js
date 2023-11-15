@@ -1,5 +1,6 @@
 import express from "express";
-import userRouter from "./Users/index.js";
+import userRouter from "./modules/Users/index.js";
+// import authRouter from "./modules/Auth/index.js";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import client from "./database/db.js";
@@ -14,6 +15,7 @@ app.use([
 ]);
 
 app.use("/users", userRouter);
+// app.use("/auth", authRouter);
 
 app.listen("8000", () => {
   console.log("app is running");
